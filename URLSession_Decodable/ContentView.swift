@@ -8,13 +8,24 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject var viewModel = ViewModel()
     
-    private var viewModel: ViewModel = ViewModel()
+    //private var viewModel: ViewModel = ViewModel()
     
     var body: some View {
         VStack {
-            Button("Crear petición HTTP") {
+            /**Button("Crear petición HTTP") {
                 viewModel.executeAPI()
+            }**/
+            Text("ID: \(viewModel.userBasicInfo.iduser)")
+            Text("Email: \(viewModel.userBasicInfo.email)")
+            Text("Contraseña: \(viewModel.userBasicInfo.password)")
+            Text("Nombre: \(viewModel.userBasicInfo.name)")
+            Text("Apellido: \(viewModel.userBasicInfo.surname)")
+        }
+        .onAppear{
+            Task{
+                await viewModel.executeRequest()
             }
         }
         .padding()
